@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-app.post('/quotes', (req, res) => {
+app.post('/titles', (req, res) => {
   console.log(req.body)
 })
 

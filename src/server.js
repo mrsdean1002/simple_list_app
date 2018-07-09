@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config');
+const router = require('./routes');
 
 // Load mongoose package
 const mongoose = require('mongoose');
@@ -14,22 +15,12 @@ require('./models/file.model.js');
 
 const app = express();
 const publicPath = path.resolve(__dirname, '../public');
-app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(express.static(publicPath));
+app.use('/api', router);
+app.use(bodyParser.urlencoded({extended: true}));
 
-// All handlers below...
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
-
-app.get('/title', (req, res) => {         //added app.get('/title', (req, res))
-  res.sendFile(__dirname + '/index.html') 
-})
-
-app.post('/title', (req, res) => { //changed from '/titles' to '/title'
-  console.log(req.body)
-})
 
 app.listen(3000, function(){
   console.log('listening on port 3000')

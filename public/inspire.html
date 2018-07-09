@@ -29,10 +29,14 @@
       <div class="container">
         <h2>Book List</h2>
 
-        <form action="/title" method="POST">                       <!--  changed from titles to title -->
+        <div id="list-container"></div>
+          <ul class="list-group">
+            <li class="list-group-item"></li>
+      </div>
+        <form>                       <!--  changed from titles to title -->
           <input type="text" placeholder="title" name="title">
           <input type="text" placeholder="published" name="published">
-          <button type="submit">Submit</button>
+          <button type="button">Submit</button>
       </form>
         <!-- <p>Give Some Encouragement!</p>
         
@@ -43,6 +47,7 @@
           <button id="update"> update </button>
         </form> -->
       </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="js/app.js">
       </script>
       <footer>

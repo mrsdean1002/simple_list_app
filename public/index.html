@@ -6,7 +6,7 @@
     
     <link rel="stylesheet" href="css/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Barrio|Emilys+Candy|Faster+One|Fredericka+the+Great|Frijole|Lily+Script+One|Megrim" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     
@@ -25,18 +25,48 @@
         </ul>
       </nav>
     </header>
-     
-      <!-- <section>
-        
-      </section>         -->
-      <script src="js/app.js">
-      </script>
-        
+     <div class="container">
+       <h2>A wild webpage appears...</h2>
 
-      <footer>
+       <div id="list-container"></div>
+     </div>
+     
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script>
+      $(document).ready(function() {
+        const data = { name: "Code Louisvillains" }
+        const html = `Hello ${data.name}! I am a template!`;
+    
+        $('body h1').first().after(html);
+      });
+    </script>
+    
+    <script>
+      $(document).ready(function() {
+        const data = [
+          {name: 'Buffy', value: 'Slayer, guidance counselor'},
+          {name: 'Willow', value: 'Witch'},
+          {name: 'Xander', value: 'Dude, construction worker'},
+          {name: 'Giles', value: 'Watcher, Librarian'},
+        ];
+    
+        const listHtml = data.map(line => `
+          <div class="row">
+            <div class="col-xs-6"><strong>{{name}}</strong></div>
+            <div class="col-xs-6">{{value}}</div>
+          </div>`).join('\n');
+    
+        $('#list-container').html(listHtml);
+      });
+    
+    </script>
+
+<script src="/js/app.js"></script>
+
+      <!-- <footer>
     
         <p>&copy; 2017 Mrsdean1002</p>
-      </footer>
+      </footer> -->
 
   </body>
 </html>

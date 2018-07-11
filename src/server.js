@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
 const config = require('./config');
+const bodyParser = require('body-parser');
 const router = require('./routes');
 
 // Load mongoose package
@@ -14,6 +14,9 @@ mongoose.connection.openUri(`mongodb://${config.db.username}:${config.db.passwor
 require('./models/file.model.js');
 
 const app = express();
+// week1 app.use(function(req, res, next) {
+//   res.end('Hello World!');
+// })
 const publicPath = path.resolve(__dirname, '../public');
 
 // app.use('/api', router); <---commented this out because it would crash the app, is it needed
@@ -23,6 +26,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-app.listen(3000, function(){
-  console.log('listening on port 3000')
-})
+app.listen(config.port, function(){
+  console.log(`${config.appName} is listening on port ${config.port}`);
+});

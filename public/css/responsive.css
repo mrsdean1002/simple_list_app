@@ -1,0 +1,36 @@
+@media (max-width: 480px) {
+   
+     }
+    .nav ul {
+      font-size: 1.25em;
+    }
+    
+   
+  @media (max-width: 768px) {
+  
+  }
+  
+  ul li
+  {
+    list-style: none;
+    display: inline-block;
+    
+  }
+  
+  
+  .container
+  {
+    margin: 100px auto;
+    width: 600px;
+  }
+  
+  .container1
+  {
+    margin:25px auto;
+    width: 600px;
+  }
+  
+  
+  
+  
+  

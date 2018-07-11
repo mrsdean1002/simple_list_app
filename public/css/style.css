@@ -1,0 +1,80 @@
+/***********BODY***********/
+
+
+body {
+    text-align: center;
+    font-family: 'Emilys Candy', cursive;
+  }
+  /* site body */
+  body {
+    background-color: black;
+    color: #000;
+    background-image: url("../img/foggy-mist-forest-trees-42263.jpeg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  
+  
+  /***********HEADER**********/
+  
+/*
+  header {
+    background: #1f1e1e;
+  }
+*/
+  
+  h1 {
+    font-size: 45px;
+    color: darkred;
+  }
+  h2{
+    font-size: 40px;
+    color: darkred;
+  }
+  
+  /***********NAVIGATIONAL BAR***********/
+  
+  nav {
+    background: darkred;
+    padding: 0.5px; 
+    
+  }
+  
+  nav ul {
+   list-style: none;
+    margin: 8px 0px 10px;
+    padding: 0;
+    font-size: 20px;
+  }
+  
+  /*   made nav bar horizontal  */
+  nav li {
+    display: inline-block;
+  }
+  
+  nav a {
+    font-weight: 800;
+    padding: 15px 20px;
+  }
+  
+  /* links */
+  a {
+    color: black;
+  }
+  
+  /* nav link */
+  nav a, nav a:visited {
+    color: rgb(116, 80, 63);
+  }
+  
+  /* selected nav link */
+  nav a.selected, nav a:hover {
+    color: black;
+  }
+  
+  
+  /***********PARAGRAPH***********/
+  p {
+    font-size: 20px;
+    color: darkred;
+  }

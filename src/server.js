@@ -14,15 +14,12 @@ mongoose.connection.openUri(`mongodb://${config.db.username}:${config.db.passwor
 require('./models/file.model.js');
 
 const app = express();
-// week1 app.use(function(req, res, next) {
-//   res.end('Hello World!');
-// })
 const publicPath = path.resolve(__dirname, '../public');
-
-// app.use('/api', router); <---commented this out because it would crash the app, is it needed
-app.use(express.static(publicPath));
-
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(publicPath));
+app.use('/api', router); //commented this out because it would crash the app, is it needed
+
+
 
 
 

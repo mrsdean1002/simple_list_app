@@ -78,3 +78,12 @@ body {
     font-size: 20px;
     color: darkred;
   }
+
+  #list-container {
+    color: red;
+    text-align: left;
+  }
+
+  #list-container button {
+    color: red;
+  }

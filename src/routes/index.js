@@ -17,11 +17,22 @@ const Book = require('../models/file.model')
    res.json(quotes[rng])
   });
 
-  router.get('/booklist', function(req, res) {
-    Book.find({}, function(err, allbooks){
+  router.get('/booklist', function(req, res, next) {
+    const File = mongoose.model('File');
+
+    Book.find({deleted: {$ne: true}}, function(err, allbooks){
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
       res.json(allbooks);
     });
-  })
+    
+  });
+
+
+/******************************************** */
+
 
 
   /**
@@ -43,6 +54,8 @@ router.post('/file', function(req, res, next) {
     res.json(newFile);
   });
 });
+
+
 /**
  * R - ead
  */
@@ -84,7 +97,25 @@ router.put('/file/:fileId', function(req, res, next) {
  * D - elete
  */
 router.delete('/file/:fileId', function(req, res, next) {
-  res.end(`Deleting file '${req.params.fileId}'`);
+  const File = mongoose.model('File');
+  const fileId = req.params.fileId;
+
+  File.findById(fileId, function(err, file) {
+    if(err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    if (!file) {
+      return res.status(404).json({message: "File not found"});
+    }
+
+    file.deleted = true;
+
+    file.save(function(err, doomedFile) {
+      res.json(doomedFile);
+    })
+
+  })
 });
 
 /**

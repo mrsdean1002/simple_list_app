@@ -20,11 +20,12 @@ function getBooks() {
 }
 
 function renderFiles(files) {
-  return files.map(file => `
+  const listItems = files.map(file => `  
     <li class="list-group-item"> 
-      <strong> ${file.title} </strong> - ${file.published}
+      <strong>${file.title}</strong> - ${file.published}
       <span class="pull-right">
       <button type="button" class="btn btn-xs btn-default" onclick="handleEditFileClick(this)" data-file-id="${file._id}">Edit</button>
+      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteFileClick(this)" data-file-id="${file._id}">Del</button>
       </span>
     </li>`);
   const html = `<ul class="list-group">${listItems.join('')}</ul>`;
@@ -41,6 +42,30 @@ function handleEditFileClick(element) {
   }
 }
 
+function handleDeleteFileClick(element) {
+  const fileId = element.getAttribute('data-file-id');
+
+  if (confirm("Are you sure?")) {
+    deleteFile(fileId);
+  }
+}
+
+function deleteFile(fileId) {
+  const url = '/api/file/' + fileId;
+
+  fetch(url, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(response => response.json())
+    .then(response => {
+      console.log("DOOOOOOOOOM!!!!!");
+      refreshFileList();
+    })
+    .catch(err => {
+      console.error("I'm not dead yet!", err);
+    });
+}
 
 function setForm(data) {
   data = data || {};
@@ -83,7 +108,7 @@ function submitFileForm() {
   
   const fileData = {
     title: $('#file-title').val(),
-    published: $('#file-description').val(),
+    published: $('#file-published').val(),
     _id: $('#file-id').val(),
   };
 
@@ -120,9 +145,13 @@ function cancelFileForm() {
 }
 
 function refreshFileList() {
+  const template = $('#list-template').html();
+
   getBooks()
     .then(files => {
+
       window.BOOKS = files;
+      const data = {files: files};
       const html = renderFiles(files);
       $('#list-container').html(html);
     });

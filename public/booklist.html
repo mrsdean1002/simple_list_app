@@ -27,28 +27,37 @@
 
     <div class="container">
         <h2>Book List</h2>
-
+        <div class="background">
+        <div class="transbox">
         <div id="list-container"></div>
         <!-- <ul id="list-container"></ul> -->
-
-    <button id="add-file-button" class="btn btn-primary" onclick="handleAddFileClick()">Add File</button>    
+      </div>
+    <button id="add-file-button" class="btn btn-primary" onclick="handleAddFileClick()">Add Book</button>  
+    
     <!-- <div id="form-container" class="panel hidden"> -->
         <form id="add-file-form">
         <input type="hidden" id="file-id" value="" />
         <form action="/booklist" method="POST"> 
 
           <!-- <legend id="form-label">File</legend> -->
+          
           <div class="form-group">
-            <label for="file-title">Title</label>                    
+              <div class="transbox">
+            <!-- <label for="file-title">Title</label>                     -->
             <input type="text" class="form-control" id="file-title" placeholder="Title"> 
           </div>
+          
           <div class="form-group">
-            <label for="file-published">Published</label>
+              <div class="transbox">
+            <!-- <label for="file-published">Published</label> -->
           <input type="text" class="form-control" id="file-published" placeholder="Published">
+        </div>
         </div>
         <button type="button" onclick="submitFileForm()" class="btn btn-success">Submit</button>
         <button type="button" onclick="cancelFileForm()" class="btn btn-sucess">Cancel</button>
         </form>
+      </div>
+      </div>
     </div>
   </div>
 

@@ -88,8 +88,8 @@ function setForm(data) {
 }
 
 
-function editBook(id) {
-  var BOOKTOUPDATE = BOOKS.find(book => book._id === id)
+// function editBook(id) {
+//   var BOOKTOUPDATE = BOOKS.find(book => book._id === id)
 
   /*
   1. Load the Book into the form
@@ -102,7 +102,7 @@ function editBook(id) {
     },
     body: JSON.stringify({somedata: "newdata"}),
   })
-}
+
 function submitFileForm() {
   console.log("You clicked 'submit'. Congratulations.");
   

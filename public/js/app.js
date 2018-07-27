@@ -14,7 +14,7 @@ var Books = []
 function getBooks() {
   return $.ajax('/api/booklist')
     .then(res => {
-      console.log("someday I will get books()", res);
+      console.log("obtain books", res);
       return res;
     })
 }
@@ -45,7 +45,7 @@ function handleEditBookClick(element) {
 function handleDeleteBookClick(element) {
   const bookId = element.getAttribute('data-book-id');
 
-  if (confirm("Are you sure?")) {
+  if (confirm("Last chance to turn back...")) {
     deleteBook(bookId);
   }
 }
@@ -59,11 +59,11 @@ function deleteBook(bookId) {
   })
     .then(response => response.json())
     .then(response => {
-      console.log("DOOOOOOOOOM!!!!!");
+      console.log("Gone Baby Gone");
       refreshBookList();
     })
     .catch(err => {
-      console.error("I'm not dead yet!", err);
+      console.error("Still here", err);
     });
 }
 
@@ -104,7 +104,7 @@ function setForm(data) {
   // })
 
 function submitBookForm() {
-  console.log("You clicked 'submit'. Congratulations.");
+  console.log("Published!...awesome sauce!");
   
   const bookData = {
     title: $('#book-title').val(),
@@ -130,12 +130,12 @@ function submitBookForm() {
   })
     .then(response => response.json())
     .then(book => {
-      console.log("we have updated the data", book);
+      console.log("book revised", book);
       setForm();
       refreshBookList(); 
     })
     .catch(err => {
-      console.error("A terrible thing has happened", err);
+      console.error("Something Wicked This Way Comes..", err);
     })
   }
     

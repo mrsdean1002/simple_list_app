@@ -17,7 +17,7 @@ const app = express();
 const publicPath = path.resolve(__dirname, '../public');
 app.use(bodyParser.json());
 app.use(express.static(publicPath));
-app.use('/api', router); //commented this out because it would crash the app, is it needed
+app.use('/api', router); 
 
 
 

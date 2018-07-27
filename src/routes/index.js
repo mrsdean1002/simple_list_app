@@ -9,8 +9,8 @@ const Book = require('../models/book.model')
     var rng = Math.floor(Math.random()*quotes.length);
     console.log(`rng`, rng);
    res.json(rng)
-  });
-  
+  });  
+   
   // router.get('/deanquotes.html', function(req, res, next) {
   //   var rng = Math.floor(Math.random()*quotes.length);
   //   console.log(`rng`, rng);

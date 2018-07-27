@@ -1,15 +1,15 @@
 // function getQuotes() {
 //   return $.ajax('/api/quotes')
 //     .then(res => {
-//       console.log("Results from getFiles()", res);
+//       console.log("Results from getBooks()", res);
 //       return res;
 //     })
 //     .fail(err => {
-//       console.error("Error in getFiles()", err);
+//       console.error("Error in getBooks()", err);
 //       throw err;
 //     });
 // }
-var BOOKS = []
+var Books = []
 
 function getBooks() {
   return $.ajax('/api/booklist')
@@ -19,13 +19,13 @@ function getBooks() {
     })
 }
 
-function renderFiles(files) {
-  const listItems = files.map(file => `  
+function renderBook(books) {
+  const listItems = books.map(book => `  
     <li class="list-group-item"> 
-      <strong>${file.title}</strong> - ${file.published}
+      <strong>${book.title}</strong> - ${book.published}
       <span class="pull-right">
-      <button type="button" class="btn btn-xs btn-default" onclick="handleEditFileClick(this)" data-file-id="${file._id}">Edit</button>
-      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteFileClick(this)" data-file-id="${file._id}">Del</button>
+      <button type="button" class="btn btn-xs btn-default" onclick="handleEditBookClick(this)" data-book-id="${book._id}">Edit</button>
+      <button type="button" class="btn btn-xs btn-danger" onclick="handleDeleteBookClick(this)" data-book-id="${book._id}">Del</button>
       </span>
     </li>`);
   const html = `<ul class="list-group">${listItems.join('')}</ul>`;
@@ -33,25 +33,25 @@ function renderFiles(files) {
   return html;
 
 }
-function handleEditFileClick(element) {
-  const fileId = element.getAttribute('data-file-id');
+function handleEditBookClick(element) {
+  const bookId = element.getAttribute('data-book-id');
 
-  const file = window.BOOKS.find(file => file._id === fileId);
-  if (file) {
-    setForm(file);   
+  const book = window.Books.find(book => book._id === bookId);
+  if (book) {
+    setForm(book);   
   }
 }
 
-function handleDeleteFileClick(element) {
-  const fileId = element.getAttribute('data-file-id');
+function handleDeleteBookClick(element) {
+  const bookId = element.getAttribute('data-book-id');
 
   if (confirm("Are you sure?")) {
-    deleteFile(fileId);
+    deleteBook(bookId);
   }
 }
 
-function deleteFile(fileId) {
-  const url = '/api/file/' + fileId;
+function deleteBook(bookId) {
+  const url = '/api/book/' + bookId;
 
   fetch(url, {
     method: 'DELETE',
@@ -60,7 +60,7 @@ function deleteFile(fileId) {
     .then(response => response.json())
     .then(response => {
       console.log("DOOOOOOOOOM!!!!!");
-      refreshFileList();
+      refreshBookList();
     })
     .catch(err => {
       console.error("I'm not dead yet!", err);
@@ -70,69 +70,69 @@ function deleteFile(fileId) {
 function setForm(data) {
   data = data || {};
 
-  const file = {
+  const book = {
     title: data.title || '',
     published: data.published || '',
     _id: data._id || '',
   };
 
-  $('#file-title').val(file.title);
-  $('#file-published').val(file.published);
-  $('#file-id').val(file._id);
+  $('#book-title').val(book.title);
+  $('#book-published').val(book.published);
+  $('#book-id').val(book._id);
 
-  if (file._id) {
-    $('#form-label').text("Edit File");
+  if (book._id) {
+    $('#form-label').text("Edit Book");
   } else {
-    $('#form-label').text("Add File");
+    $('#form-label').text("Add Book");
   }
 }
 
 
 // function editBook(id) {
-//   var BOOKTOUPDATE = BOOKS.find(book => book._id === id)
+//   var BOOKTOUPDATE = Books.find(book => book._id === id)
 
   /*
   1. Load the Book into the form
   2. When "Submit" is clicked, either update or submit a new one
   */
-  fetch('/api/file/' + id, {
-    method: "PUT",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({somedata: "newdata"}),
-  })
+  // fetch('/api/book/' + id, {
+  //   method: "PUT",
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({somedata: "newdata"}),
+  // })
 
-function submitFileForm() {
+function submitBookForm() {
   console.log("You clicked 'submit'. Congratulations.");
   
-  const fileData = {
-    title: $('#file-title').val(),
-    published: $('#file-published').val(),
-    _id: $('#file-id').val(),
+  const bookData = {
+    title: $('#book-title').val(),
+    published: $('#book-published').val(),
+    _id: $('#book-id').val(),
   };
 
   let method, url;
-  if (fileData._id) {
+  if (bookData._id) {
     method = 'PUT';
-    url = '/api/file/' + fileData._id;
+    url = '/api/book/' + bookData._id;
   } else {
     method = 'POST';
-    url = '/api/file';
+    url = '/api/book';
   }
 
   fetch(url, {
     method: method,
-    body: JSON.stringify(fileData),
+    body: JSON.stringify(bookData),
     headers: {
       'Content-Type': 'application/json'
     }
   })
     .then(response => response.json())
-    .then(file => {
-      console.log("we have updated the data", file);
+    .then(book => {
+      console.log("we have updated the data", book);
       setForm();
-      refreshFileList(); 
+      refreshBookList(); 
     })
     .catch(err => {
       console.error("A terrible thing has happened", err);
@@ -140,19 +140,19 @@ function submitFileForm() {
   }
     
 
-function cancelFileForm() {
+function cancelBookForm() {
   setForm();
 }
 
-function refreshFileList() {
+function refreshBookList() {
   const template = $('#list-template').html();
 
   getBooks()
-    .then(files => {
+    .then(books => {
 
-      window.BOOKS = files;
-      const data = {files: files};
-      const html = renderFiles(files);
+      window.Books = books;
+      const data = {books: books};
+      const html = renderBook(books);
       $('#list-container').html(html);
     });
 }

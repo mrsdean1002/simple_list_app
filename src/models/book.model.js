@@ -1,24 +1,24 @@
 // Load mongoose package
 const mongoose = require('mongoose');
 
-const FileSchema = new mongoose.Schema({
+const BookSchema = new mongoose.Schema({
     title: String,
     published: String,
     created_at: { type: Date, default: Date.now },
     deleted: {type: Boolean, default: false}
   });
 
-  const File = mongoose.model("File", FileSchema);
+  const Book = mongoose.model("Book", BookSchema);
 
-File.count({}, function(err, count) {
+Book.count({}, function(err, count) {
   if (err) {
     throw err;
   }
  
   if (count > 0) return ;
 
-  const files = require('./file.seed.json');
-  File.create(files, function(err, newFiles) {
+  const books = require('./book.seed.json');
+  Book.create(books, function(err, newBook) {
     if (err) {
       throw err;
     }
@@ -34,4 +34,4 @@ File.count({}, function(err, count) {
 
 
 
-module.exports = File;
+module.exports = Book;

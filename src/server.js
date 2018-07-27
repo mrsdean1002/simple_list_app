@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 mongoose.connection.openUri(`mongodb://${config.db.username}:${config.db.password}@${config.db.host}/${config.db.dbName}`);
 
 // Import all models
-require('./models/file.model.js');
+require('./models/book.model.js');
 
 const app = express();
 const publicPath = path.resolve(__dirname, '../public');

@@ -1,7 +1,7 @@
 // src/routes/index.js
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const Book = require('../models/file.model')
+const Book = require('../models/book.model')
 // All handlers below...
 
   
@@ -11,14 +11,14 @@ const Book = require('../models/file.model')
    res.json(rng)
   });
   
-  router.get('/deanquotes.html', function(req, res, next) {
-    var rng = Math.floor(Math.random()*quotes.length);
-    console.log(`rng`, rng);
-   res.json(quotes[rng])
-  });
+  // router.get('/deanquotes.html', function(req, res, next) {
+  //   var rng = Math.floor(Math.random()*quotes.length);
+  //   console.log(`rng`, rng);
+  //  res.json(quotes[rng])
+  // });
 
   router.get('/booklist', function(req, res, next) {
-    const File = mongoose.model('File');
+    const Book = mongoose.model('Book');
 
     Book.find({deleted: {$ne: true}}, function(err, allbooks){
       if (err) {
@@ -35,94 +35,84 @@ const Book = require('../models/file.model')
 
 
 
-  /**
- * C - reate
- */
-router.post('/file', function(req, res, next) {
-  const File = mongoose.model('File');
-  const fileData = {
+// CREATE
+router.post('/book', function(req, res, next) {
+  const Book = mongoose.model('Book');
+  const bookData = {
     title: req.body.title,
     published: req.body.published,
   };
 
-  File.create(fileData, function(err, newFile) {
+  Book.create(bookData, function(err, newBook) {
     if (err) {
       console.error(err);
       return res.status(500).json(err);
     }
 
-    res.json(newFile);
+    res.json(newBook);
   });
 });
 
 
-/**
- * R - ead
- */
-router.get('/file/:fileId', function(req, res, next) {
-  res.end(`Reading file '${req.params.fileId}'`);
+// READ
+router.get('/book/:bookId', function(req, res, next) {
+  res.end(`Reading book '${req.params.bookId}'`);
 });
 
-/**
- * U - pdate
- */
-router.put('/file/:fileId', function(req, res, next) {
-  const File = mongoose.model('File');
-  const fileId = req.params.fileId;
+// UPDATE
+router.put('/book/:bookId', function(req, res, next) {
+  const Book = mongoose.model('Book');
+  const bookId = req.params.bookId;
   
-  File.findById(fileId, function(err, file) {
+  Book.findById(bookId, function(err, book) {
     if (err) {
       console.error(err);
       return res.status(500).json(err);
     }
-    if (!file) {
-      return res.status(404).json({message: "File not found"});
+    if (!book) {
+      return res.status(404).json({message: "Book not found"});
     }
   
-    file.title = req.body.title;
-    file.published = req.body.published;
+    book.title = req.body.title;
+    book.published = req.body.published;
   
-    file.save(function(err, savedFile) {
+    book.save(function(err, savedBook) {
       if (err) {
         console.error(err);
         return res.status(500).json(err);
       }
-      res.json(savedFile);
+      res.json(savedBook);
     })
   
   })
   }); 
 
-/**
- * D - elete
- */
-router.delete('/file/:fileId', function(req, res, next) {
-  const File = mongoose.model('File');
-  const fileId = req.params.fileId;
+// DELETE
+router.delete('/book/:bookId', function(req, res, next) {
+  const Book = mongoose.model('Book');
+  const bookId = req.params.bookId;
 
-  File.findById(fileId, function(err, file) {
+  Book.findById(bookId, function(err, book) {
     if(err) {
       console.log(err);
       return res.status(500).json(err);
     }
-    if (!file) {
-      return res.status(404).json({message: "File not found"});
+    if (!book) {
+      return res.status(404).json({message: "Book not found"});
     }
 
-    file.deleted = true;
+    book.deleted = true;
 
-    file.save(function(err, doomedFile) {
-      res.json(doomedFile);
+    book.save(function(err, burnedBook) {
+      res.json(burnedBook);
     })
 
   })
 });
 
-/**
- * ¯\_(ツ)_/¯ - list
- */
-router.get('/file', function(req, res, next) {
-  res.end('List all files');
+// LIST
+router.get('/book', function(req, res, next) {
+  res.end('List all books');
 });
 
 
